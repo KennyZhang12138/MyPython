@@ -218,19 +218,7 @@ class token_parser
 		bool parse_tokens();
 		void print_tokens();
 };
-/*
-vector<pair<int, string> > token_parser::get_token_vector() {
-    vector<pair<int, string> > token_vector;
-	list<base_token *>::iterator iterator;
-	iterator = token_list.begin();
-	while(iterator != token_list.end()) {
-        pair<int, string> p = make_pair((*iterator)->get_token_type(), (*iterator)->get_token_value());
-        token_vector.push_back(p);
-		++iterator;
-	}
-    return token_vector;
-};
-*/
+
 deque<pair<int, string>> token_parser::get_token_vector(){
     deque<pair<int, string>> token_vector;
     list<base_token *>::iterator iterator;
@@ -1109,128 +1097,7 @@ int peval(deque<pair<int,string>> &tokens, pair<int,string> &a){
         return 0;
     }
 }
-/*
-int defeval(){
-    
-    string name,value;
-    int type;
-    pair<int,string> t;
-    //probably better to put this crap in a array or something
-    if(tokens.at(0).first != t_symbol){
-        return -1;
-    }
 
-    t = tokens.at(0);
-    tokens.pop_front();
-    if(def_table.count(t.second) > 0){
-        return -1;
-    }
-    tokens.pop_front();
-    if(tokens.at(0).second != "("){
-        return -1;
-    }
-    tokens.pop_front()
-    if(tokens.at(0).second != ")"){
-        return -1;
-    }
-    tokens.pop_front();
-    if(tokens.at(0).second != ":"){
-         return -1;
-    }
-    tokens.pop_front();
-    if(tokens.at(0).first != t_eol){
-        return -1;
-    }
-    tokens.pop_front();
-    while(tokens.at(0).first != t_eof){
-        t = tokens.at(0);
-        tokens.pop_front();
-        if(t.first == t_eol){
-            if(eval_line(eval)==0){
-                if(tokens.at(0).first != t_indent && tokens.at(0).first != t_dedent){
-                    return -1;
-                }
-            }else{
-                return -1;
-            }
-        }
-
-        if(t.first == t_dedent){
-            break;
-        }
-
-        if(t.first == t_indent){
-            continue;
-        }
-        //symbol
-        if(t.first == t_symbol){
-            if(key_table.count(t.second) > 0){
-                if(t.second == "if"){
-                    if(ifeval(tokens, t) == 0){
-                        if(t.first == t_output){
-                            type = t.first;
-                            value = value + t.second + "\n"; 
-                        }
-                    }else{
-                        return -1;
-                    }
-                }else if(t.second == "return"){
-                    if(tokens.at(0).first == t_literal){
-                        t = tokens.at(0);
-                        tokens.pop_front();
-                        type = t.first;
-                        value = t.second;
-                        continue;
-                    }else if(tokens.at(0).first == t_integer){
-                        t = tokens.at(0);
-                        tokens.pop_front();
-                        type = t.first;
-                        value = t.second;
-                        continue;
-                    }else if(tokens.at(0).first == t_symbol){
-                        if(local_var_table.count(tokens.at(0).second) > 0){
-                            t = tokens.at(0);
-                            tokens.pop_front();
-                            type = t.first;
-                            value = t.second;
-                            continue;
-                        }else{
-                            return -1;
-                        }
-                    }else{
-                        return -1;
-                    }
-                }else if(t.second == "print"){
-                    if(dprinteval(tokens, t) == 0){
-                        type = t_output;
-                        value = value + t.second + "\n";
-                        continue;
-                    }else{
-                        return -1;
-                    }
-                }else{
-                    return -1;
-                }
-            }else if(local_var_table.count(t.second) > 0){
-                eval.push_back(t);
-            }else{
-                if(tokens.at(0).first != t_punctuation && tokens.at(0).second != "="){
-                    return -1;
-                }else{
-                    deeval();
-                }
-            }
-        }
-        //end of symbol
-
-
-    }
-    
-    
-    
-}
-int ifeval(){return 0;}
-*/
 int printeval(deque <pair<int,string>> &tokens, pair<int, string> &a){
     pair<int, string> t;
     deque<pair<int,string>> eval;
@@ -1344,13 +1211,3 @@ int main(int argc, char** argv) {
 	parser.parse_tokens();
 	parser.print_tokens();
 
-    // token type (int), token value (string)
-    // vector<pair<int, string> > token_vector = parser.get_token_vector();
-
-    // deque<pair<int,string>> token_deque = parser.get_token_vector();
-    // deque<pair<int,string>> tokens = remove_whitespace(token_deque);
-    // for(auto &i : tokens){
-    //     cout << i.first << " " << i.second << endl;
-    // }
-    // evaluate(tokens);
-}
